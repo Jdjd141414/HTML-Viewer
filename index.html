@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Viewer</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #101216;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 420px;
+    padding: 30px;
+    background: #1b2028;
+    border: 1px solid #303946;
+    border-radius: 14px;
+    text-align: center;
+}
+
+h1 {
+    color: #62d69a;
+    font-size: 25px;
+}
+
+p {
+    color: #9ca8b7;
+    font-size: 14px;
+}
+
+.upload {
+    display: block;
+    margin-top: 25px;
+    padding: 16px;
+    background: #168b55;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.upload:hover {
+    background: #20a66a;
+}
+
+input {
+    display: none;
+}
+
+#filename {
+    margin-top: 18px;
+    color: #62d69a;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>HTML Viewer</h1>
+    <p>Select an HTML file to open it in a new tab.</p>
+
+    <label class="upload" for="fileInput">
+        Open HTML File
+    </label>
+
+    <input
+        type="file"
+        id="fileInput"
+        accept=".html,.htm,text/html"
+    >
+
+    <div id="filename"></div>
+</div>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const filename = document.getElementById("filename");
+
+fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+
+    if (!file) return;
+
+    filename.textContent = file.name;
+
+    const url = URL.createObjectURL(file);
+    const newTab = window.open(url, "_blank");
+
+    if (!newTab) {
+        filename.textContent = "Please allow pop-ups to open HTML files.";
+    }
+});
+</script>
+
+</body>
+</html>
